@@ -19,13 +19,12 @@ class UsersController < ApplicationController
 
 # shows edit form
   def edit
-    unless session[:user_id].nil?
-      @user = User.find(session[:user_id])
+    if @user = current_user
         if @user.id != params[:id].to_i
           redirect_to edit_user_path(@user)
         end
     else
-      flash[:errors] = ["Stop trying to spy on someone else's private life you creepy fuck."]
+      flash[:errors] = ["Stop trying to spy on someone else's private life you creepy fuck"]
       redirect_to login_path
     end
   end
